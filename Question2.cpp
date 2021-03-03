@@ -5,9 +5,11 @@ using namespace std;
 
 int main(void)
 {
-    float x,y;
-    cin>>x>>y;
-    cout.setf(ios::fixed);
-    cout<<setprecision(6)<<x/y<<endl;
+    int x;
+    cin>>x;
+    for(int i=0;i<4;++i){
+        cout<<x%10;
+        x/=10;
+    }
     return 0;
 }

@@ -5,9 +5,9 @@ using namespace std;
 
 int main(void)
 {
-    float x,y;
-    cin>>x>>y;
-    cout.setf(ios::fixed);
-    cout<<setprecision(6)<<x/y<<endl;
+    int x;
+    cin>>x;
+    if(x%2==0)cout<<x;
+    else cout<<x-1;
     return 0;
 }
