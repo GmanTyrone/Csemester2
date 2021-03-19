@@ -3,37 +3,36 @@
 
 using namespace std;
 
-class bar3d
+class Point
 {
-  public: float width, height, depth;
-  bar3d(){
-    width=0;
-    height=0;
-    depth=0;
-  }
-  bar3d(float a, float b, float c){
-    if(a>0&&a<1000&&b>0&&b<1000&&c>0&&c<1000){
-      width=a;
-      height=b;
-      depth=c;
-    }
-    else{
-      width=0;
-      height=0;
-      depth=0;
-    }
-  }
-  float getVolume(){
-  return width*height*depth;
-  }
-  void scale(float x){
-  width*=x;
-  height*=x;
-  depth*=x;
-  }
-  float addVolume (bar3d x){
-  return x.getVolume()+getVolume();
-  }
+    private: float x, y;
+    public:
+        Point(){
+            x=0;
+            y=0;
+        }
+        Point(float a, float b){
+            x=a;
+            y=b;
+        }
+        void printPoint(){
+            cout<<"("<<x<<", "<<y<<")";
+        }
+        float getX(){
+            return x;
+        }
+        float getY(){
+            return y;
+        }
+        void setX(float equis){
+            x=equis;
+        }
+        void setY(float ye){
+            y=ye;
+        }
+        float getDistance(Point punto2){
+        return sqrt((getX()-punto2.getX())*(getX()-punto2.getX())+(getY()-punto2.getY())*(getY()-punto2.getY()));
+        }
 };
 
 
