@@ -24,14 +24,19 @@ public:
     int getDigit(){
         return digit;
     }
+    int sumdigit(Digit Digito2){
+        return Digit.getDigit()+Digito2.getDigit();
+    }
 };
 
 class IntNumber
 {
-private:
+public:
+    //variables
     vector<Digit>Losdigitos;
     bool isnegative;
-public:
+
+    //functions:
     IntNumber()
     {
         Losdigitos.push_back(Digit());
@@ -52,7 +57,24 @@ public:
         if(Losdigitos[0].getDigit()==0){cout<<0;return;}
         for(Digit x : Losdigitos)cout<<x.getDigit();
     }
-    *add(const IntNumber *) const;
+    IntNumber *add(const IntNumber *Numero2) const
+    {
+        int carry=0, cociente=0;
+        IntNumber *sum = new IntNumber;
+        int menor;
+        int tamano=Losdigitos.size();
+        int tamano2=Numero2->Losdigitos.size();
+        int diferencia=abs(tamano-tamano2);
+        if(tamano<tamano2)menor=tamano;
+        else menor=tamano2;
+        while(menor>=0){
+            cociente=Losdigitos.at(menor)+Numero2->Losdigitos.at(menor);
+            carry=cociente%10;
+            cociente/=10;
+            --menor;
+        }
+        return sum;
+    }
 };
 
 int main()
