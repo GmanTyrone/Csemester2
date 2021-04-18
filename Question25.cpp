@@ -58,50 +58,52 @@ public:
         }
         cout<<")";
     }
-    friend ostream& operator <<(ostream& outputStream, Fraction a);
 
-    friend Fraction operator !(Fraction a);
-};
+    const Fraction operator *(Fraction b)
+    {
+        int multnum=numerator*b.getNumerator();
+        int multden=denominator*b.getDenominator();
+        return Fraction(multnum,multden);
+    }
 
+    const Fraction operator /(Fraction b)
+    {
+        int multnum=numerator*b.getDenominator();
+        int multden=denominator*b.getNumerator();
+        return Fraction(multnum,multden);
+    }
 
-const Fraction operator *(Fraction a, Fraction b)
-{
-    int multnum=a.getNumerator()*b.getNumerator();
-    int multden=a.getDenominator()*b.getDenominator();
-    return Fraction(multnum,multden);
-}
+    const Fraction operator +(Fraction b)
+    {
+        int multnum=numerator*b.getDenominator()+denominator*b.getNumerator();
+        int multden=denominator*b.getDenominator();
+        return Fraction(multnum,multden);
+    }
 
-const Fraction operator /(Fraction a, Fraction b)
-{
-    int multnum=a.getNumerator()*b.getDenominator();
-    int multden=a.getDenominator()*b.getNumerator();
-    return Fraction(multnum,multden);
-}
+    const Fraction operator -(Fraction b)
+    {
+        int multnum=numerator*b.getDenominator()-denominator*b.getNumerator();
+        int multden=denominator*b.getDenominator();
+        return Fraction(multnum,multden);
+    }
 
-const Fraction operator +(Fraction a, Fraction b)
-{
-    int multnum=a.getNumerator()*b.getDenominator()+a.getDenominator()*b.getNumerator();
-    int multden=a.getDenominator()*b.getDenominator();
-    return Fraction(multnum,multden);
-}
-
-const Fraction operator -(Fraction a, Fraction b)
-{
-    int multnum=a.getNumerator()*b.getDenominator()-a.getDenominator()*b.getNumerator();
-    int multden=a.getDenominator()*b.getDenominator();
-    return Fraction(multnum,multden);
-}
-
-ostream& operator <<(ostream& outputStream, Fraction a)
-{
-    int gcd=maxdivisor(a.numerator,a.denominator);
+    friend ostream& operator <<(ostream& outputStream, Fraction a)
+    {
+        int gcd=maxdivisor(a.numerator,a.denominator);
         outputStream<<"("<<a.numerator/gcd;
         if(a.denominator/gcd!=1){
             outputStream<<"/"<<a.denominator/gcd;
         }
         outputStream<<")";
-    return outputStream;
-}
+        return outputStream;
+    }
+
+
+    Fraction operator !()
+    {
+        return Fraction(denominator,numerator);
+    }
+};
 
 
 int main(void)
