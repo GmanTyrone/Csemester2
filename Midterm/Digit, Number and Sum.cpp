@@ -36,7 +36,7 @@ private:
 public:
     IntNumber()
     {
-        Losdigitos[0]=Digit();
+        return;
     }
     IntNumber(char *letras)
     {
@@ -46,37 +46,29 @@ public:
        if(letras[0]=='-'){isnegative=true;++i;}
        while(letras[i]=='0')++i;
        if(!isdigit(letras[i])){
-          Losdigitos[counter];
-          ++counter;
           return;
           }
        while(isdigit(letras[i])){
-            Losdigitos[counter]=Digit((int)letras[i]-48);
+            Losdigitos[counter]=Digit((int)letras[i]-'0');
             ++i;
             ++counter;
             }
     }
     void display()
     {
-        if(Losdigitos[0].getDigit()==0||counter==0){
+        if(Losdigitos[0].getDigit()==0){
             cout<<0;
             return;
         }
         if(isnegative)cout<<"-";
-        for(int i=0;i<counter;++i)cout<<Losdigitos[i].getDigit();
+        for(int i=0;i<counter;++i)Losdigitos[i].display();
     }
 
 
-    //question 19....not sure if its the right way but OJ accepts
-        char *get_a(){
-            return p;
-        }
-
     IntNumber *add(IntNumber *num2) const{
-        long long int sum = stoll(num2->get_a()) + stoll(p);
-        string sum1 = to_string(sum);
-        char *sum2 = &sum1[0];
-        return new IntNumber(sum2);
+        long long int sum = stoll(num2->p) + stoll(p);
+        string sumstr = to_string(sum);
+        return new IntNumber(&sumstr[0]);
     }
 };
 
