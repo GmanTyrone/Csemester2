@@ -4,8 +4,6 @@
 
 using namespace std;
 
-
-
 class Point
 {
     private: float x, y;
@@ -34,7 +32,7 @@ class Point
             y=ye;
         }
         float getDistance(Point punto2){
-        return sqrt((getX()-punto2.getX())*(getX()-punto2.getX())+(getY()-punto2.getY())*(getY()-punto2.getY()));
+        return sqrt((x-punto2.x)*(x-punto2.x)+(y-punto2.y)*(y-punto2.y));
         }
 };
 
@@ -44,10 +42,8 @@ private:
     Point point1,point2;
 public:
     Segment(){
-        point1.setX(0);
-      	point1.setY(0);
-        point2.setX(0);
-        point2.setY(0);
+        point1=Point();
+        point2=Point();
     }
     Segment(Point c, Point d){
         point1.setX(c.getX());
@@ -67,28 +63,28 @@ public:
         float Cy=s.point1.getY();
         float Dx=s.point2.getX();
         float Dy=s.point2.getY();
-        float t=((Ax-Cx)*(Cy-Dy)-(Ay-Cy)*(Cx-Dx))/((Ax-Bx)*(Cy-Dy)-(Ay-By)*(Cx-Dx));
-        float u=((Bx-Ax)*(Ay-Cy)-(By-Ay)*(Ax-Cx))/((Ax-Bx)*(Cy-Dy)-(Ay-By)*(Cx-Dx));
+        float dem=(Ax-Bx)*(Cy-Dy)-(Ay-By)*(Cx-Dx);
+        float t=((Ax-Cx)*(Cy-Dy)-(Ay-Cy)*(Cx-Dx))/dem;
+        float u=((Bx-Ax)*(Ay-Cy)-(By-Ay)*(Ax-Cx))/dem;
         if((Ax==Cx&&Ay==Cy)||(Ax==Dx&&Ay==Dy)){
-            Point *w = new Point;
-            w->setX(Ax);
-            w->setY(Ay);
+            Point *w = new Point(Ax,Ay);
             return w;
         }
         else if((Bx==Cx&&By==Cy)||(Bx==Dx&&By==Dy)){
-            Point *w = new Point;
-            w->setX(Bx);
-            w->setY(By);
+            Point *w = new Point(Bx,By);
             return w;
         }
         else if((t>=0&&t<=1)&&(u>=0&&u<=1)){
-            Point *w = new Point;
             float Px=(Ax+t*(Bx-Ax));
             float Py=(Ay+t*(By-Ay));
-            w->setX(Px);
-            w->setY(Py);
+            Point *w = new Point(Px,Py);
             return w;
         }
         else return nullptr;
     }
 };
+
+int main(void)
+{
+    return 0;
+}
