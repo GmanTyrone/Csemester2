@@ -13,7 +13,7 @@ public:
     }
     Decode(string word)
     {
-        for(int i=0;i<word.size();i+=3)
+        for(int i=0;i<word.length();i+=3)
         {
             char partei[3];
             word.copy(partei,3,i);

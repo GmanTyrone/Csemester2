@@ -8,10 +8,12 @@ class Encode
 public:
     string codigo;
 
-    Encode(){
+    Encode()
+    {
         codigo="";
   	}
-    Encode(string word){
+    Encode(string word)
+    {
     for (int i = 0; i < word.length(); ++i){
         string numero=to_string((int)word[i]);
         while(numero.size()<3)numero.insert(0,"0");
