@@ -9,7 +9,6 @@ public:
     string decodigo;
     int len;
 
-
     Decode()
     {
         decodigo="";
@@ -17,9 +16,7 @@ public:
     }
     Decode(string word)
     {
-        decodigo="";
-        int longitude=word.size();
-        for(int i=longitude-1;i>=0;i-=3)
+        for(int i=0;i<word.size();i+=3)
         {
             int a=0;
             for(int j=0;j<3;++j)
@@ -36,10 +33,6 @@ public:
         return decodigo;
     }
 };
-
-
-
-//072101108108111
 
 int main() {
   string str;
