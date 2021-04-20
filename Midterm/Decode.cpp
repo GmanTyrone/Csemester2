@@ -9,7 +9,6 @@ public:
     string decodigo;
     int len;
 
-
     Decode()
     {
         decodigo="";
@@ -36,10 +35,6 @@ public:
         return decodigo;
     }
 };
-
-
-
-//072101108108111
 
 int main() {
   string str;

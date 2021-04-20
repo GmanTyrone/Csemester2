@@ -15,8 +15,6 @@ int maxdivisor(const int a,const int b)
     return maxd;
 }
 
-
-
 class Fraction
 {
 private:
@@ -89,15 +87,15 @@ public:
 
     friend ostream& operator <<(ostream& outputStream, Fraction a)
     {
-        int gcd=maxdivisor(a.numerator,a.denominator);
+        a.display();
+        /*int gcd=maxdivisor(a.numerator,a.denominator);
         outputStream<<"("<<a.numerator/gcd;
         if(a.denominator/gcd!=1){
             outputStream<<"/"<<a.denominator/gcd;
         }
         outputStream<<")";
-        return outputStream;
+        return outputStream;*/
     }
-
 
     Fraction operator !()
     {

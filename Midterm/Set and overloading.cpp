@@ -48,7 +48,7 @@ public:
     Set operator +(const Set s)
     {
         Set Union= Set(*this);
-        Union.add(s);
+        Union.add(s);//Discards the int "added"
         return Union;
     }
 

@@ -19,15 +19,15 @@ class bar3d
     }
   }
   float getVolume(){
-  return width*height*depth;
+    return width*height*depth;
   }
   void scale(float x){
-  width*=x;
-  height*=x;
-  depth*=x;
+    width*=x;
+    height*=x;
+    depth*=x;
   }
   float addVolume (bar3d x){
-  return x.getVolume()+getVolume();
+    return x.getVolume()+getVolume();
   }
 };
 

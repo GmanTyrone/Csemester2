@@ -9,7 +9,6 @@ public:
     string codigo;
     int len;
 
-
     Encode()
     {
         codigo="000";
@@ -34,10 +33,6 @@ public:
         return codigo;
     }
 };
-
-
-
-
 
 int main() {
   string str;
