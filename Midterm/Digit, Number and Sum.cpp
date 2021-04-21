@@ -56,7 +56,7 @@ public:
     }
     void display()
     {
-        if(Losdigitos[0].getDigit()==0){
+        if(counter==0){
             cout<<0;
             return;
         }
