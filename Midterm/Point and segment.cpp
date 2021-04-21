@@ -64,10 +64,10 @@ public:
         float t=((Ax-Cx)*(Cy-Dy)-(Ay-Cy)*(Cx-Dx))/dem;
         float u=((Bx-Ax)*(Ay-Cy)-(By-Ay)*(Ax-Cx))/dem;
         if((Ax==Cx&&Ay==Cy)||(Ax==Dx&&Ay==Dy)){
-            return new Point(Ax,Ay);
+            return &point1;
         }
         else if((Bx==Cx&&By==Cy)||(Bx==Dx&&By==Dy)){
-            return new Point(Bx,By);
+            return &point2;
         }
         else if((t>=0&&t<=1)&&(u>=0&&u<=1)){
             float Px=(Ax+t*(Bx-Ax));
