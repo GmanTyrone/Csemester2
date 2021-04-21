@@ -1,5 +1,4 @@
 #include <iostream>
-#include <bits/stdc++.h>
 #include <math.h>
 
 using namespace std;
@@ -46,10 +45,8 @@ public:
         point2=Point();
     }
     Segment(Point c, Point d){
-        point1.setX(c.getX());
-      	point1.setY(c.getY());
-        point2.setX(d.getX());
-        point2.setY(d.getY());
+        point1=Point(c.getX(),c.getY());
+        point2=Point(d.getX(),d.getY());
     }
     float getLength(){
         return point1.getDistance(point2);
@@ -67,18 +64,15 @@ public:
         float t=((Ax-Cx)*(Cy-Dy)-(Ay-Cy)*(Cx-Dx))/dem;
         float u=((Bx-Ax)*(Ay-Cy)-(By-Ay)*(Ax-Cx))/dem;
         if((Ax==Cx&&Ay==Cy)||(Ax==Dx&&Ay==Dy)){
-            Point *w = new Point(Ax,Ay);
-            return w;
+            return new Point(Ax,Ay);
         }
         else if((Bx==Cx&&By==Cy)||(Bx==Dx&&By==Dy)){
-            Point *w = new Point(Bx,By);
-            return w;
+            return new Point(Bx,By);
         }
         else if((t>=0&&t<=1)&&(u>=0&&u<=1)){
             float Px=(Ax+t*(Bx-Ax));
             float Py=(Ay+t*(By-Ay));
-            Point *w = new Point(Px,Py);
-            return w;
+            return new Point(Px,Py);
         }
         else return nullptr;
     }
