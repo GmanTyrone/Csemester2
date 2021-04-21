@@ -41,8 +41,7 @@ private:
     Point point1,point2;
 public:
     Segment(){
-        point1=Point();
-        point2=Point();
+        return;
     }
     Segment(Point c, Point d){
         point1=Point(c.getX(),c.getY());
