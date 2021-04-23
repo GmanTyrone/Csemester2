@@ -4,15 +4,12 @@ using namespace std;
 class Set
 {
 private:
-  	int element[100];
-  	int count;
+  	int element[100]={0};
+  	int count=0;
 
 public:
     Set() {
-        for(int i = 0; i < 100; i++){
-            element[i] = 0;
-        }
-        count = 0;
+        return;
     }
     Set(const Set &a) { //copy
         for(int i = 0; i < a.count; i++){
@@ -48,7 +45,7 @@ public:
     Set operator +(const Set s)
     {
         Set Union= Set(*this);
-        Union.add(s);
+        Union.add(s);//Discards the int "added"
         return Union;
     }
 

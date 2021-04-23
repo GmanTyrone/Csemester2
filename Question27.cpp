@@ -1,47 +1,55 @@
-#include<stdio.h>
-#include<string.h>
+#include <iostream>
+#include <string>
 
-bool b[32][32];
+using namespace std;
 
 int main()
 {
-    int cnt = 0, x = 0, y = 0;
-    char c = '\0';/*, p = ''*/
-    scanf("%d", &cnt);
-    for(int i = 0; i < cnt; i++) {
-        memset(b, 0, sizeof(b));
-        printf("Bitmap #%d\n", i+1);
-        scanf("%d%d", &x, &y);
-        while(true) {
-            scanf("%c", &c);
-            if(c == '.') break;
-            switch(c){
+    int cases;
+    cin>>cases;
+    for(int z=0;z<cases;++z){
+        //Settings
+        char bitmap[32][32];
+        for(int i=0;i<32;++i){
+            for(int j=0;j<32;++j)
+                bitmap[i][j]='.';
+        }
+        int x,y;
+        string instructions;
+        cin>>x>>y;
+        cin>>instructions;
+
+        //Mapping
+        for(int i=0; i<instructions.length()-1; ++i){
+            switch(instructions[i]){
                 case 'E':
-                    b[x][y-1] = 1;
+                    bitmap[x][y-1] = 'X';
                     x++;
                     break;
                 case 'N':
-                    b[x][y] = 1;
+                    bitmap[x][y] = 'X';
                     y++;
                     break;
                 case 'W':
-                    b[x-1][y] = 1;
+                    bitmap[x-1][y] = 'X';
                     x--;
                     break;
                 case 'S':
-                    b[x-1][y-1] = 1;
+                    bitmap[x-1][y-1] = 'X';
                     y--;
             }
         }
 
-        for(int k = 31; k >= 0; k--) {
-            for(int j = 0; j < 32; j++) {
-                if(b[j][k]) printf("X");
-                else printf(".");
+
+        //Printing
+        cout<<"Bitmap #"<<z+1<<endl;
+        for(int i=0;i<32;++i){
+            for(int j=0;j<32;++j){
+                cout<<bitmap[j][31-i];
+                if(j==31)cout<<endl;
             }
-            printf("\n");
+            if(i==31)cout<<endl;
         }
-        printf("\n");
     }
     return 0;
 }

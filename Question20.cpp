@@ -1,43 +1,30 @@
 #include <iostream>
-#include <bits/stdc++.h>
 #include <string>
+
 using namespace std;
 
 class Encode
 {
 public:
     string codigo;
-    int len;
-
 
     Encode()
     {
-        codigo="000";
-        len=codigo.size();
-    }
+        codigo="";
+  	}
     Encode(string word)
     {
-        codigo="";
-        int longitude=word.size();
-        for(int i=longitude-1;i>=0;--i)
-        {
-            int a=(int)word[i];
-            string b=to_string(a);
-            while(b.size()<3)b.insert(0,"0");
-            codigo.insert(0,b);
+    for (int i = 0; i < word.length(); ++i){
+        string numero=to_string((int)word[i]);
+        while(numero.length()<3)numero.insert(0,"0");
+        codigo += numero;
         }
-        len=codigo.size();
-    }
-
-    string encode()
+  	}
+  	string encode()
     {
         return codigo;
     }
 };
-
-
-
-
 
 int main() {
   string str;

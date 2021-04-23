@@ -1,7 +1,4 @@
 #include <iostream>
-#include <bits/stdc++.h>
-#include <vector>
-#include <string>
 
 using namespace std;
 
@@ -24,108 +21,54 @@ public:
     int getDigit(){
         return digit;
     }
-    int sumdigit(Digit Digito2){
-        return getDigit()+Digito2.getDigit();
+    void display(){
+        cout<<digit;
     }
 };
 
-void Complemento(vector<Digit> a, int tamano)
-{
-    for(int i=0;i<tamano;++i){
-        a.at(i).setDigit(9-a.at(i).getDigit());
-    }
-    a.at(tamano).setDigit(10-a.at(tamano).getDigit());
-}
-
-void Trim(vector<Digit> a)
-{
-    while(a.at(0).getDigit()==0)a.erase(a.begin());
-}
-
-
 class IntNumber
 {
+private:
+    Digit Losdigitos[1000];
+    bool isnegative=false;
+    int counter=0;
+    char *p;
 public:
-    //variables
-    vector<Digit>Losdigitos;
-    int tamano=Losdigitos.size();
-    bool isnegative;
-
-    //functions:
     IntNumber()
     {
-        Losdigitos.push_back(Digit());
-        isnegative=false;
+        return;
     }
     IntNumber(char *letras)
     {
+       p=letras;
        int i=0;
-       isnegative=false;
        if(letras[0]=='+')++i;
        if(letras[0]=='-'){isnegative=true;++i;}
        while(letras[i]=='0')++i;
-       if(letras[i]>57||letras[i]<48){isnegative=false;Losdigitos.push_back(Digit());return;}
-       while(letras[i]>=48&&letras[i]<=57){Losdigitos.push_back(Digit((int)letras[i]-48));++i;}
+       if(!isdigit(letras[i])){
+          return;
+          }
+       while(isdigit(letras[i])){
+            Losdigitos[counter]=Digit((int)letras[i]-'0');
+            ++i;
+            ++counter;
+            }
     }
     void display()
     {
+        if(counter==0){
+            cout<<0;
+            return;
+        }
         if(isnegative)cout<<"-";
-        if(Losdigitos[0].getDigit()==0){cout<<0;return;}
-        for(Digit x : Losdigitos)cout<<x.getDigit();
+        for(int i=0;i<counter;++i)Losdigitos[i].display();
     }
-    IntNumber *add(const IntNumber *Numero2) const
-    {
-        int carry=0, cociente=0, addtama;
-        vector<Digit> top;
-        bool topsign;
-        vector<Digit> bot;
-        bool botsign;
 
 
-        //Puts the larger in size on top and the smallest in size on the bottom
-        if(tamano>Numero2->tamano){
-            top=Losdigitos;
-            topsign=isnegative;
-            bot=Numero2->Losdigitos;
-            botsign=Numero2->isnegative;
-            addtama=tamano+1;
-        }
-        else{
-            bot=Losdigitos;
-            botsign=isnegative;
-            top=Numero2->Losdigitos;
-            topsign=Numero2->isnegative;
-            addtama=Numero2->tamano+1;
-        }
-
-        //Adds a bit at the beginning for sign
-        top.insert(top.begin(),Digit());
-
-        //Creates the character array for making the sum Number
-        char numeros[addtama];
-
-        //Adds 0's to the bottom one until its the same size as the top one
-        while(bot.size()<addtama)bot.insert(bot.begin(),Digit());
-
-
-        //Makes the complement for the numbers if necessary
-        if(topsign)Complemento(top,addtama);
-        if(botsign)Complemento(bot,addtama);
-
-
-        //Fill the character array
-        for(int i=addtama-1;i>=0;--i){
-            numeros[i]=(top[i].getDigit()+bot[i].getDigit()+carry)%10;
-            carry=(top[i].getDigit()+bot[i].getDigit()+carry)/10;
-        }
-        IntNumber *sum = new IntNumber(numeros);
-        if(sum->Losdigitos[0].getDigit()==9)
-        {
-            Complemento(sum->Losdigitos,sum->Losdigitos.size());
-            sum->isnegative=true;
-        }
-        Trim(sum->Losdigitos);
-        return sum;
+    IntNumber *add(IntNumber *num2) const{
+        long long int sum = stoll(num2->p) + stoll(p);
+        string sumstr = to_string(sum);
+        return new IntNumber(&sumstr[0]);
     }
 };
 

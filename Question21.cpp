@@ -1,5 +1,4 @@
 #include <iostream>
-#include <bits/stdc++.h>
 #include <string>
 using namespace std;
 
@@ -7,28 +6,19 @@ class Decode
 {
 public:
     string decodigo;
-    int len;
-
 
     Decode()
     {
         decodigo="";
-        len=decodigo.size();
     }
     Decode(string word)
     {
-        decodigo="";
-        int longitude=word.size();
-        for(int i=longitude-1;i>=0;i-=3)
+        for(int i=0;i<word.length();i+=3)
         {
-            int a=0;
-            for(int j=0;j<3;++j)
-            {
-                a+=((int)word[i-j]-48)*pow(10,j);
-            }
-            decodigo.insert(0,1,(char)a);
+            char partei[3];
+            word.copy(partei,3,i);
+            decodigo+=(char)stoi(partei);
         }
-        len=decodigo.size();
     }
 
     string decode()
@@ -36,10 +26,6 @@ public:
         return decodigo;
     }
 };
-
-
-
-//072101108108111
 
 int main() {
   string str;
