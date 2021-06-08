@@ -77,7 +77,7 @@ public:
         addDays(0);
       }
   }
-private:
+protected:
   int year, month, day;
   bool Bisiesto()
   {
@@ -86,17 +86,77 @@ private:
   };
 };
 
+
+class DateTime : public Date
+{
+public:
+  virtual string toString() // "mm/dd/yyyy HH:MM:SS"
+  {
+      string partemonth=to_string(month);
+      while(partemonth.length()<2)partemonth.insert(0,"0");
+      string parteday=to_string(day);
+      while(parteday.length()<2)parteday.insert(0,"0");
+      string parteyear=to_string(year);
+      while(parteyear.length()<4)parteyear.insert(0,"0");
+      string partehour=to_string(hour);
+      while(partehour.length()<2)partehour.insert(0,"0");
+      string partemin=to_string(minute);
+      while(partemin.length()<2)partemin.insert(0,"0");
+      string parteseg=to_string(second);
+      while(parteseg.length()<2)parteseg.insert(0,"0");
+      return(partemonth+"/"+parteday+"/"+parteyear+" "+partehour+":"+partemin+":"+parteseg);
+  }
+  DateTime() : Date()
+  {
+    hour = 0;
+    minute = 0;
+    second = 0;
+  }
+  DateTime(int y, int m, int d, int hh=0, int mm=0, int ss=0) : Date(y, m, d)
+  {
+    hour = hh;
+    minute = mm;
+    second = ss;
+  }
+  void setHour(int h){hour=h;};
+  void setMinute(int m){minute=m;};
+  void setSecond(int s){second=s;};
+  int getHour() const{return hour;};
+  int getMinute() const{return minute;};
+  int getSecond() const{return second;};
+  void addHours(int h) // adds the specified number of hours to this instance
+  {
+      int protohours=hour+h;
+      setHour(protohours%24);
+      addDays(protohours/24);
+  }
+  void addMinutes(int m) // adds the specified number of minutes to this instance
+  {
+      int prominutes=minute+m;
+      setMinute(prominutes%60);
+      addHours(prominutes/60);
+  }
+  void addSeconds(int s) // adds the specified number of seconds to this instance
+  {
+      int protosec=second+s;
+      setSecond(protosec%60);
+      addMinutes(protosec/60);
+  }
+private:
+  int hour, minute, second;
+};
+
 int main() {
   int n;
-  Date d(2021, 1, 1);
+  DateTime d(2021, 1, 1);
   cin>>n;
-  d.addDays(n);
+  d.addHours(n);
   cout<<d.toString()<<endl;
   cin>>n;
-  d.addMonths(n);
+  d.addMinutes(n);
   cout<<d.toString()<<endl;
   cin>>n;
-  d.addYears(n);
+  d.addSeconds(n);
   cout<<d.toString()<<endl;
   return 0;
 }
