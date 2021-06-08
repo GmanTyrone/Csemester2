@@ -33,47 +33,29 @@ class Point
         float getDistance(Point punto2){
         return sqrt((getX()-punto2.getX())*(getX()-punto2.getX())+(getY()-punto2.getY())*(getY()-punto2.getY()));
         }
+        bool operator ==(Point point2){
+            if(getX()==point2.getX()&&getY()==point2.getY())return true;
+            return false;
+        }
 };
 
 class Segment
 {
-private:
-    Point point1,point2;
 public:
+    Point point1,point2;
+//public:
     Segment(){
-        return;
     }
     Segment(Point c, Point d){
-        point1=Point(c.getX(),c.getY());
-        point2=Point(d.getX(),d.getY());
+      	point1=c;
+        point2=d;
     }
     float getLength(){
         return point1.getDistance(point2);
     };
-    Point *getIntersect(Segment s){
-        float Ax=point1.getX();
-        float Ay=point1.getY();
-        float Bx=point2.getX();
-        float By=point2.getY();
-        float Cx=s.point1.getX();
-        float Cy=s.point1.getY();
-        float Dx=s.point2.getX();
-        float Dy=s.point2.getY();
-        float dem=(Ax-Bx)*(Cy-Dy)-(Ay-By)*(Cx-Dx);
-        float t=((Ax-Cx)*(Cy-Dy)-(Ay-Cy)*(Cx-Dx))/dem;
-        float u=((Bx-Ax)*(Ay-Cy)-(By-Ay)*(Ax-Cx))/dem;
-        if((Ax==Cx&&Ay==Cy)||(Ax==Dx&&Ay==Dy)){
-            return &point1;
-        }
-        else if((Bx==Cx&&By==Cy)||(Bx==Dx&&By==Dy)){
-            return &point2;
-        }
-        else if((t>=0&&t<=1)&&(u>=0&&u<=1)){
-            float Px=(Ax+t*(Bx-Ax));
-            float Py=(Ay+t*(By-Ay));
-            return new Point(Px,Py);
-        }
-        else return NULL;
+    bool touch(Segment barra2){
+        if(point1==barra2.point1||point1==barra2.point2||point2==barra2.point1||point2==barra2.point2)return true;
+        return false;
     }
 };
 
@@ -85,11 +67,28 @@ public:
   Shape();
   Shape(Segment *S, int n) // to construct a shape with a serial of segment.
   {
-      edgeCount=n;
+      if(closeshape(S,n)){
+        edgeCount=n;
+        for (int i =0;i<n;i++)seg[i] = Segment(S[i]);
+      }
+      else throw invalid_argument("");
+  }
+  bool closeshape(Segment *S,int n)
+  {
       for (int i =0;i<n;i++)
-        {
-            seg[i] = Segment(S[i]);
-        }
+      {
+          for(int j =0;j<n;j++){
+            if(j!=i){
+                if(S[i].touch(S[j]))return true;
+            }
+          }
+      }
+      return false;
+  }
+  virtual float getArea() = 0;
+  Segment &getSeg(int index)
+  {
+  	return seg[index];
   }
   float getPerimeter() //return the perimeter of the shape
   {
@@ -110,15 +109,6 @@ public:
     float getArea() //return the area of the rectangle
     {
         return(getPerimeter()-2*seg[0].getLength())*seg[0].getLength()/2;
-    }
-    bool isCollision(const Rectangle Marco){
-        bool flag=false;
-        for(Segment x: this->seg){
-            for(Segment y:Marco.seg){
-                    if(x.getIntersect(y)!=nullptr)flag=true;
-            }
-        }
-        return flag;
     }
 };
 
