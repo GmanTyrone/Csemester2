@@ -68,7 +68,7 @@ public:
         maxdays=30;
         break;
       case 2:
-        if(Bisiesto())maxdays=29;
+        if(isLeapYear(*this))maxdays=29;
         else maxdays=28;
       }
       if(day>maxdays){
@@ -79,11 +79,6 @@ public:
   }
 protected:
   int year, month, day;
-  bool Bisiesto()
-  {
-    if((year%4==0&&year%100!=0)||year%400==0)return true;
-    return false;
-  };
 };
 
 
